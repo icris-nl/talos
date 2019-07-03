@@ -1,0 +1,161 @@
+[
+  {
+    "id": "6a6ec4f2.15278c",
+    "type": "inject",
+    "z": "dfac3efe.3a37d",
+    "name": "JSON",
+    "topic": "test",
+    "payload": "{\"test\":\"data\"}",
+    "payloadType": "json",
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "x": 290,
+    "y": 800,
+    "wires": [
+      [
+        "57ce901e.65cd5"
+      ]
+    ]
+  },
+  {
+    "id": "b165a309.9717",
+    "type": "debug",
+    "z": "dfac3efe.3a37d",
+    "name": "",
+    "active": true,
+    "console": "false",
+    "complete": "true",
+    "x": 600,
+    "y": 920,
+    "wires": []
+  },
+  {
+    "id": "6a2d9877.08a198",
+    "type": "inject",
+    "z": "dfac3efe.3a37d",
+    "name": "24 hex to use and validate",
+    "topic": "test",
+    "payload": "{\"uuid\":\"572dbc06f307c8682045c55c\"}",
+    "payloadType": "json",
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "x": 230,
+    "y": 840,
+    "wires": [
+      [
+        "57ce901e.65cd5"
+      ]
+    ]
+  },
+  {
+    "id": "91b5fbcb.ac1e08",
+    "type": "inject",
+    "z": "dfac3efe.3a37d",
+    "name": "Timestamp",
+    "topic": "test",
+    "payload": "",
+    "payloadType": "date",
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "x": 280,
+    "y": 880,
+    "wires": [
+      [
+        "57ce901e.65cd5"
+      ]
+    ]
+  },
+  {
+    "id": "10535221.075c5e",
+    "type": "inject",
+    "z": "dfac3efe.3a37d",
+    "name": "String",
+    "topic": "test",
+    "payload": "Hello world!",
+    "payloadType": "str",
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "x": 290,
+    "y": 1000,
+    "wires": [
+      [
+        "57ce901e.65cd5"
+      ]
+    ]
+  },
+  {
+    "id": "e5d7a419.13ea88",
+    "type": "inject",
+    "z": "dfac3efe.3a37d",
+    "name": "JSON Array",
+    "topic": "test",
+    "payload": "[{\"test1\":\"test1\"}, {\"test2\":\"test2\"}]",
+    "payloadType": "json",
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "x": 270,
+    "y": 960,
+    "wires": [
+      [
+        "57ce901e.65cd5"
+      ]
+    ]
+  },
+  {
+    "id": "57ce901e.65cd5",
+    "type": "objectid",
+    "z": "dfac3efe.3a37d",
+    "name": "",
+    "selectedProperty": "uuid",
+    "x": 460,
+    "y": 920,
+    "wires": [
+      [
+        "b165a309.9717"
+      ]
+    ]
+  },
+  {
+    "id": "ce4fced6.86dbe",
+    "type": "inject",
+    "z": "dfac3efe.3a37d",
+    "name": "Number",
+    "topic": "test",
+    "payload": "0",
+    "payloadType": "num",
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "x": 290,
+    "y": 920,
+    "wires": [
+      [
+        "57ce901e.65cd5"
+      ]
+    ]
+  },
+  {
+    "id": "bfe8a5c0.2a45f8",
+    "type": "inject",
+    "z": "dfac3efe.3a37d",
+    "name": "Boolean",
+    "topic": "test",
+    "payload": "true",
+    "payloadType": "bool",
+    "repeat": "",
+    "crontab": "",
+    "once": false,
+    "x": 280,
+    "y": 1040,
+    "wires": [
+      [
+        "57ce901e.65cd5"
+      ]
+    ]
+  }
+]
