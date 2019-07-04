@@ -21,12 +21,14 @@
                     <p>
                         Current system status:
                     </p>
-                    <ul>
-                        <li>influxdb: {{status.influxdb}}</li>
-                        <li>mongodb: {{status.mongodb}}</li>
-                        <li>application: {{status.app}}</li>
-                    </ul>
+                    <table>
+                        <tr><th>Service</th><th>Status</th></tr>
+                        <tr><td>InfluxDB</td><td>{{status.influxdb}}</td><td><a href="http://localhost:8888/" target="_blank">&gt;&gt; Chronograf</a></td></tr>
+                        <tr><td>mongodb</td><td>{{status.mongodb}}</td></tr>
+                        <tr><td>node-red</td><td>{{status.app}}</td><td><a href="http://localhost:1880/admin" target="_blank">&gt;&gt; Flow editor</a></td></tr>
+                    </table>
                     <button @click="Restart">Restart</button>
+
                 </div>
             </section>
             <section id="timeseries">
