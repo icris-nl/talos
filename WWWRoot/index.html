@@ -1,64 +1,72 @@
 <html>
-    <head>
-        <link rel="stylesheet" href="style.css"></link>
-        <script src="js/vue.min.js"></script>
-        <script src="components.js"></script>    
-        <script src="app.js"></script>    
-    </head>
 
-    <body>
-        <div id="main" class="box">
-            <div class="accordion box">
-                <section id="home">
-                    <h2><a href="#home">Home</a></h2>
-                    <div>
-                        <img src="images/talos.png" style="width:300px;"/>
-                        <h2>Timeseries</h2>
-                        <grid
-                            :height="'200'"
-                            :data="timeseries"
-                            :columns="timeseriesColumns"
-                            @selected="TimeseriesSelected"
-                        ></grid>
-                    </div>
-                </section>
+<head>
+    <link rel="stylesheet" href="style.css">
+    </link>
+    <script src="js/vue.min.js"></script>
+    <script src="components.js"></script>
+    <script src="app.js"></script>
+</head>
 
-                <section id="sources">
-                    <h2><a href="#sources">Sources</a></h2>
-                    <div>                        
-                        <grid
-                            :height="'400'"                
-                            :data="sources"
-                            :columns="sourcesColumns"                        
-                            v-on:selected="SourceSelected"> <!--Subscribe to the emitted event -->
-                        </grid>
-                        <detailstable
-                            :item="selectedSource"
-                            :keys="sourceKeys"
-                            @save="SaveSource"
-                            @delete="DeleteSource"
-                            @new="NewSource"
-                        >
-                    </div>
-                </section>
-                <section id="dashboards">
-                    <h2><a href="#dashboards">Dashboards</a></h2>
-                    <div>
-                        dashboards
-                    </div>
-                </section>
-                <section id="panels">
-                    <h2><a href="#panels">Panels</a></h2>
-                    <div>
-                        panels
-                    </div>
-                </section>
-            </div>
+<body>
+    <div id="main" class="box">
+        <div class="accordion box">
+            <section id="home">
+                <h2><a href="#home">Home</a></h2>
+                <div>
+                    <img src="images/talos.png" style="width:300px;" />
+                    <p>
+                        Welcome to your Talos stack.
+                    </p>
+                    <p>
+                        Current system status:
+                    </p>
+                    <ul>
+                        <li>influxdb: {{status.influxdb}}</li>
+                        <li>mongodb: {{status.mongodb}}</li>
+                        <li>application: {{status.app}}</li>
+                    </ul>
+                    <button @click="Restart">Restart</button>
+                </div>
+            </section>
+            <section id="timeseries">
+                <h2><a href="#timeseries">Timeseries</a></h2>
+                <div>
+                    <h2>Timeseries</h2>
+                    <grid :height="'200'" :data="timeseries" :columns="timeseriesColumns"
+                        @selected="TimeseriesSelected"></grid>
+                </div>
+            </section>
 
-
+            <section id="sources">
+                <h2><a href="#sources">Sources</a></h2>
+                <div>
+                    <grid :height="'400'" :data="sources" :columns="sourcesColumns" v-on:selected="SourceSelected">
+                        <!--Subscribe to the emitted event -->
+                    </grid>
+                    <detailstable :item="selectedSource" :keys="sourceKeys" @save="SaveSource" @delete="DeleteSource"
+                        @new="NewSource">
+                </div>
+            </section>
+            <section id="dashboards">
+                <h2><a href="#dashboards">Dashboards</a></h2>
+                <div>
+                    dashboards
+                </div>
+            </section>
+            <section id="panels">
+                <h2><a href="#panels">Panels</a></h2>
+                <div>
+                    panels
+                </div>
+            </section>
         </div>
-        <div class="loading" id="loader" style="display: none">Loading&#8230;</div>    
-        <div id="snackbar">Toast message</div>    
-        <script src="index.js"></script>
-    </body>
+
+
+    </div>
+    <div class="loading" id="loader" style="display: none">Loading&#8230;</div>
+    <div id="snackbar">Toast message</div>
+    <script src="index.js"></script>
+</body>
+
 </html>

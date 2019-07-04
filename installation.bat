@@ -50,6 +50,7 @@ md c:\Talos\Temp
 md c:\Talos\Node-RED
 md c:\Talos\Out
 md c:\Talos\InfluxDB
+md c:\Talos\Chronograf
 md c:\Talos\MongoDB
 md c:\Talos\MongoDB\Data
 md c:\Talos\WWWRoot
@@ -76,6 +77,9 @@ xcopy /sy binaries-win\mongodb\*.* c:\Talos\mongodb
 echo Copying InfluxDB...
 xcopy /sy binaries-win\influxdb\*.* c:\Talos\influxdb
 
+echo Copying Chronograf...
+xcopy /sy binaries-win\chronograf\*.* c:\Talos\chronograf
+
 echo Installing MongoDB as a service...
 binaries-win\nssm stop MongoDB
 binaries-win\nssm remove MongoDB confirm
@@ -97,6 +101,16 @@ binaries-win\nssm set InfluxDB Description "Talos - InfluxDB service"
 
 echo Starting influxdb service...
 net start InfluxDB
+
+echo Installing Chronograf as a service...
+binaries-win\nssm stop Chronograf
+binaries-win\nssm remove Chronograf confirm
+binaries-win\nssm install Chronograf "c:\Talos\chronograf\chronograf.exe"
+binaries-win\nssm set InfluxDB AppDirectory "c:\Talos\chronograf"
+binaries-win\nssm set InfluxDB Description "Talos - Chronograf service"
+
+echo Starting chronograf service...
+net start Chronograf
 
 echo Installing Node-Red as a Service...
 binaries-win\nssm stop Node-RED

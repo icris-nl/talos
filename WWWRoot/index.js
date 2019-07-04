@@ -1,23 +1,31 @@
-var viewModel=new Vue({
+var viewModel = new Vue({
     el: '#main',
     data: {
         timeseries: [],
         timeseriesColumns: ['name'],
-        selectedTimeseries:{},
-        sourcesColumns: ['Type', 'Name'],        
+        selectedTimeseries: {},
+        sourcesColumns: ['Type', 'Name'],
         sources: [],
-        selectedSource:{},
+        selectedSource: {},
         sourceKeys: ['Type', 'Name', 'Config'],
-
+        status: {
+            influxdb: 'unknown',
+            mongodb: 'unkown',
+            cloud: 'unknown',
+            app: 'running'
+        }
     },
     methods: {
-        TimeseriesSelected:function(item){
+        TimeseriesSelected: function (item) {
 
         },
-        SourceSelected:function(item){
-            this.selectedSource=item;
+        SourceSelected: function (item) {
+            this.selectedSource = item;
         },
-        SaveSource:function(){
+        CreateTimeseries: function(item){
+            
+        },
+        SaveSource: function () {
             fetch('/talos/sources', {
                 method: 'post',
                 credentials: 'same-origin', //Needed for cookie authentication to Azure AD. Fuckers.
@@ -30,31 +38,44 @@ var viewModel=new Vue({
                 .then(res => {
                     console.log("Source posted");
                 });
-    
-        },
-        DeleteSource: function(){
 
         },
-        NewSource: function(){
-            this.selectedSource={
-                Type:{
-                    type:'dropdown',
-                    options:[
-                        {id: 'httppoll', name: 'httppoll'},
-                        {id: 'tcplistener', name: 'tcplistener'},
-                        {id: 'serial', name: 'serial'}
+        DeleteSource: function () {
+
+        },
+        NewSource: function () {
+            this.selectedSource = {
+                Type: {
+                    type: 'dropdown',
+                    options: [
+                        { id: 'httppoll', name: 'httppoll' },
+                        { id: 'tcplistener', name: 'tcplistener' },
+                        { id: 'serial', name: 'serial' }
                     ],
                     value: ''
                 },
                 Name: '',
                 Config: ''
             }
+        },
+        Restart: function () {
+            fetchWithTimeout('/restart', {
+                method: 'get',
+                credentials: 'same-origin', //Needed for cookie authentication to Azure AD. Fuckers.
+                headers: {
+                    'Accept': 'application/json, text/plain, */*',
+                    'Content-Type': 'application/json'
+                }
+            }, 1000).then(result => result.json()).then(result => this.status.app = 'ok').catch(e => {
+                this.status.app = 'restart initiated, refreshing the page in a few seconds...';
+                setTimeout(function () { window.location.reload(true); }, 5000);
+            });
         }
 
     },
-    mounted(){
-        fetch('/talos/timeseries/measurements').then(res=>res.json()).then(result=>{
-            this.timeseries=result;
+    mounted() {
+        fetch('/talos/timeseries/measurements').then(res => res.json()).then(result => {
+            this.timeseries = result;
         });
         fetch('/talos/sources', {
             method: 'get',
@@ -62,10 +83,10 @@ var viewModel=new Vue({
             headers: {
                 'Accept': 'application/json, text/plain, */*',
                 'Content-Type': 'application/json'
-            }            
+            }
         }).then(res => res.json())
             .then(res => {
-                this.sources=res;
+                this.sources = res;
             });
         fetch('/talos/timeseries/events', {
             method: 'post',
@@ -80,6 +101,22 @@ var viewModel=new Vue({
                 console.log("Pageload event posted");
             });
 
-            //SELECT * FROM "sensorlog"."twoweeks"."dredgeview" WHERE archived=FALSE
+        fetchWithTimeout('/talos/test', {
+            method: 'get',
+            credentials: 'same-origin', //Needed for cookie authentication to Azure AD. Fuckers.
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json'
+            }
+        }, 5000).then(result => result.json()).then(result => this.status.mongodb = 'ok').catch(e => this.status.mongodb = e.message);
+        fetchWithTimeout('/talos/timeseries/measurements', {
+            method: 'get',
+            credentials: 'same-origin', //Needed for cookie authentication to Azure AD. Fuckers.
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json'
+            }
+        }, 5000).then(result => result.json()).then(result => this.status.influxdb = 'ok').catch(e => this.status.influxdb = e.message);
+        //SELECT * FROM "sensorlog"."twoweeks"."dredgeview" WHERE archived=FALSE
     }
 });

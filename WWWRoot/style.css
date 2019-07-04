@@ -1,8 +1,8 @@
 :root{
-    --header-color: rgb(150, 150, 150);
-    --bg-color: rgb(0,0,0);    
+    --header-color: rgb(170, 170, 170);
+    --bg-color: rgb(255,255,255);    
     --panel-color: rgb(75,75,75);
-    --font-color: rgb(225,225,225);
+    --font-color: rgb(0,0,0);
 }
 .box {margin:5px; position:absolute; top:0; left:0; right:0; bottom:0}
 body {
@@ -307,7 +307,7 @@ div.accordion {
         display: block;
         float: left;
         width: 3em;
-        height: 95%;
+        height: 95%;        
         margin: 0.5em 0 0.5em 0.5em;        
         color: var(--font-color);
         background-color: var(--panel-color);
@@ -358,7 +358,7 @@ div.accordion {
             }
 
         div.accordion section:target {
-            
+            min-width: 50%;
             width:initial;
             padding: 0 1em;
             bottom:0;
