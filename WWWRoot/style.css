@@ -1,8 +1,8 @@
 :root{
-    --header-color: rgb(170, 170, 170);
-    --bg-color: rgb(255,255,255);    
+    --header-color: rgb(102, 0, 102);
+    --bg-color: rgb(125,125,125);    
     --panel-color: rgb(75,75,75);
-    --font-color: rgb(0,0,0);
+    --font-color: rgb(200,200,200);
 }
 .box {margin:5px; position:absolute; top:0; left:0; right:0; bottom:0}
 body {
@@ -11,7 +11,9 @@ body {
     color: var(--font-color);
     background-color: var(--bg-color);
 }
-
+iframe{
+    border:none;
+}
 table {
     border: 2px solid var(--header-color);
     border-radius: 3px;
@@ -296,10 +298,9 @@ div.accordion {
     display: block;
     width: 100%;
     margin: 0 auto;
-    background-color: var(--header-color);
+    background-color: var(--bg-color);
     overflow: auto;
-    border-radius: 5px;
-    box-shadow: 0 3px 3px rgba(0,0,0,0.3);
+    
 }
 
     div.accordion section {

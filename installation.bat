@@ -51,6 +51,7 @@ md c:\Talos\Node-RED
 md c:\Talos\Out
 md c:\Talos\InfluxDB
 md c:\Talos\Chronograf
+md c:\Talos\Grafana
 md c:\Talos\MongoDB
 md c:\Talos\MongoDB\Data
 md c:\Talos\WWWRoot
@@ -80,6 +81,9 @@ xcopy /sy binaries-win\influxdb\*.* c:\Talos\influxdb
 echo Copying Chronograf...
 xcopy /sy binaries-win\chronograf\*.* c:\Talos\chronograf
 
+echo Copying Grafana...
+xcopy /sy binaries-win\grafana\*.* c:\Talos\Grafana
+
 echo Installing MongoDB as a service...
 binaries-win\nssm stop MongoDB
 binaries-win\nssm remove MongoDB confirm
@@ -106,11 +110,21 @@ echo Installing Chronograf as a service...
 binaries-win\nssm stop Chronograf
 binaries-win\nssm remove Chronograf confirm
 binaries-win\nssm install Chronograf "c:\Talos\chronograf\chronograf.exe"
-binaries-win\nssm set InfluxDB AppDirectory "c:\Talos\chronograf"
-binaries-win\nssm set InfluxDB Description "Talos - Chronograf service"
+binaries-win\nssm set Chronograf AppDirectory "c:\Talos\chronograf"
+binaries-win\nssm set Chronograf Description "Talos - Chronograf service"
 
 echo Starting chronograf service...
 net start Chronograf
+
+echo Installing Grafana as a service...
+binaries-win\nssm stop Grafana
+binaries-win\nssm remove Grafana confirm
+binaries-win\nssm install Grafana "c:\Talos\grafana\bin\grafana-server.exe"
+binaries-win\nssm set Grafana AppDirectory "c:\Talos\grafana\bin"
+binaries-win\nssm set Grafana Description "Talos - Grafana service"
+
+echo Starting Grafana service...
+net start Grafana
 
 echo Installing Node-Red as a Service...
 binaries-win\nssm stop Node-RED
