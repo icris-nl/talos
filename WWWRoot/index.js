@@ -22,8 +22,8 @@ var viewModel = new Vue({
         SourceSelected: function (item) {
             this.selectedSource = item;
         },
-        CreateTimeseries: function(item){
-            
+        CreateTimeseries: function (item) {
+
         },
         SaveSource: function () {
             fetch('/talos/sources', {
@@ -39,6 +39,10 @@ var viewModel = new Vue({
                     console.log("Source posted");
                 });
 
+        },
+        RefreshSysmon() {
+            var frame = document.getElementById("sysgraphs");
+            frame.src = frame.src;
         },
         DeleteSource: function () {
 

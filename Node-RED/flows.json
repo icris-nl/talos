@@ -28,6 +28,13 @@
         "info": ""
     },
     {
+        "id": "30569479.6ef08c",
+        "type": "tab",
+        "label": "Sysmon",
+        "disabled": false,
+        "info": ""
+    },
+    {
         "id": "a044401d.48077",
         "type": "subflow",
         "name": "GetBlobUrl",
@@ -410,6 +417,18 @@
         "port": "8086",
         "protocol": "http",
         "database": "timeseries",
+        "name": "",
+        "usetls": false,
+        "tls": ""
+    },
+    {
+        "id": "e726ada1.e0dfe",
+        "type": "influxdb",
+        "z": "",
+        "hostname": "127.0.0.1",
+        "port": "8086",
+        "protocol": "http",
+        "database": "sysmon",
         "name": "",
         "usetls": false,
         "tls": ""
@@ -3704,6 +3723,212 @@
                 "4ef693b3.71c60c"
             ],
             []
+        ]
+    },
+    {
+        "id": "4ce8a559.c939cc",
+        "type": "influxdb in",
+        "z": "30569479.6ef08c",
+        "influxdb": "e46dac0a.ff646",
+        "name": "Create sysmon",
+        "query": "CREATE DATABASE \"sysmon\" WITH DURATION 14d REPLICATION 1 SHARD DURATION 1h NAME \"twoweeks\"",
+        "rawOutput": false,
+        "precision": "",
+        "retentionPolicy": "",
+        "x": 480,
+        "y": 200,
+        "wires": [
+            [
+                "222fccf9.52f9b4",
+                "7eb31180.46025"
+            ]
+        ]
+    },
+    {
+        "id": "12fdd26f.5765fe",
+        "type": "inject",
+        "z": "30569479.6ef08c",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 220,
+        "y": 200,
+        "wires": [
+            [
+                "4ce8a559.c939cc"
+            ]
+        ]
+    },
+    {
+        "id": "222fccf9.52f9b4",
+        "type": "debug",
+        "z": "30569479.6ef08c",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 750,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "7eb31180.46025",
+        "type": "http response",
+        "z": "30569479.6ef08c",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 740,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "64c1a7bf.06e728",
+        "type": "catch",
+        "z": "30569479.6ef08c",
+        "name": "",
+        "scope": null,
+        "uncaught": false,
+        "x": 200,
+        "y": 280,
+        "wires": [
+            [
+                "4ce8a559.c939cc"
+            ]
+        ]
+    },
+    {
+        "id": "d9a0f0b7.cc578",
+        "type": "inject",
+        "z": "30569479.6ef08c",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "1",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "x": 210,
+        "y": 440,
+        "wires": [
+            [
+                "d0b59357.48c53"
+            ]
+        ]
+    },
+    {
+        "id": "d0b59357.48c53",
+        "type": "cpu",
+        "z": "30569479.6ef08c",
+        "name": "",
+        "msgCore": false,
+        "msgOverall": true,
+        "msgArray": false,
+        "msgTemp": false,
+        "x": 480,
+        "y": 440,
+        "wires": [
+            [
+                "992ab639.9ca9c8"
+            ]
+        ]
+    },
+    {
+        "id": "992ab639.9ca9c8",
+        "type": "influxdb out",
+        "z": "30569479.6ef08c",
+        "influxdb": "e726ada1.e0dfe",
+        "name": "",
+        "measurement": "cpu",
+        "precision": "",
+        "retentionPolicy": "",
+        "x": 760,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "4732a590.f3d4ac",
+        "type": "inject",
+        "z": "30569479.6ef08c",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "1",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "x": 210,
+        "y": 560,
+        "wires": [
+            [
+                "f195b541.23bef8"
+            ]
+        ]
+    },
+    {
+        "id": "47f1772.7a3f388",
+        "type": "influxdb out",
+        "z": "30569479.6ef08c",
+        "influxdb": "e726ada1.e0dfe",
+        "name": "",
+        "measurement": "mem",
+        "precision": "",
+        "retentionPolicy": "",
+        "x": 840,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "f195b541.23bef8",
+        "type": "Memory",
+        "z": "30569479.6ef08c",
+        "name": "",
+        "x": 460,
+        "y": 580,
+        "wires": [
+            [
+                "959d0ec4.ed0bf"
+            ]
+        ]
+    },
+    {
+        "id": "d925b9aa.3ab0c8",
+        "type": "debug",
+        "z": "30569479.6ef08c",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 750,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "959d0ec4.ed0bf",
+        "type": "function",
+        "z": "30569479.6ef08c",
+        "name": "",
+        "func": "msg.payload.memusage=parseFloat(msg.payload.memusage);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 570,
+        "y": 600,
+        "wires": [
+            [
+                "d925b9aa.3ab0c8",
+                "47f1772.7a3f388"
+            ]
         ]
     }
 ]

@@ -30,8 +30,17 @@
                     <br/>
                     <button @click="Restart">Restart</button>
                     <br/>
+
+                </div>
+            </section>
+            <section id="sysmon">
+                <h2><a href="#sysmon" @click="RefreshSysmon">System Status</a></h2>
+                <div>
                     <br/>
-                    <iframe style="width:100%; height:537px;" src="http://localhost:8889/d/KGfK3WSWz/sysmon?orgId=1&refresh=10s&kiosk"></iframe>
+                    <p>
+                        System monitoring
+                    </p>
+                    <iframe id="sysgraphs" style="width:100%; height:537px; overflow: unset" src="http://localhost:8889/d/KGfK3WSWz/sysmon?orgId=1&refresh=10s&kiosk"></iframe>
                     <!--<iframe style="width:100%; height:537px;" src="http://localhost:8888/sources/1/dashboards/2?present=true"></iframe>-->
 
                 </div>
