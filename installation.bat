@@ -7,7 +7,6 @@ ECHO.
 ECHO =============================
 ECHO Running Admin shell
 ECHO =============================
-
 :init
 setlocal DisableDelayedExpansion
 set "batchPath=%~0"
